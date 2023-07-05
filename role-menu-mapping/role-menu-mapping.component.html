@@ -1,0 +1,33 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Header -->
+    <page-header pageName="Role-Menu Mapping"></page-header>
+
+    <!-- Main -->
+    <div class="flex-auto p-2 sm:p-6 ">
+        <div class="flex flex-col bg-card shadow overflow-hidden px-4 py-8">
+            <form #mappingForm="ngForm" (ngSubmit)="mappingForm.form.valid && saveMapping()" novalidate>
+                <div class="col-12 md:col-4 mb-2">
+                    <span class="p-float-label">
+                        <p-dropdown inputId="roleId" [options]="roles" name="roleId" #roleId="ngModel"
+                            [(ngModel)]="userRoleId" appendTo="body" [autoDisplayFirst]="false" optionLabel="name"
+                            optionValue="id" [showClear]="true" styleClass="inputfield w-full"
+                            (onChange)="getRoleMenus()" required></p-dropdown>
+                        <label for="roleId">Role</label>
+                    </span>
+                    <small class="p-invalid"
+                        *ngIf="(roleId.touched || mappingForm.submitted) && roleId.errors?.required">Role
+                        is required</small>
+                </div>
+                <p-tree [value]="menus" selectionMode="checkbox" [(selection)]="selectedMenu"></p-tree>
+                <div class="col-12 border-top-2 border-green-50 flex justify-content-end">
+                    <button pButton pRipple type="submit" label="Save" icon="pi pi-check"
+                        class="p-button-sm p-button-rounded"></button> &nbsp;
+                    <button pButton pRipple type="button" label="Cancel" icon="pi pi-times"
+                        class="p-button-sm p-button-rounded p-button-danger" (click)="resetMapping()"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
